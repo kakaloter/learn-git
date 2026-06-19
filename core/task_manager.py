@@ -4,16 +4,25 @@
 import json
 import copy
 import os
+import sys
 from datetime import datetime, timedelta
 
 
 class TaskManager:
     def __init__(self, config_dir=None):
         if config_dir is None:
+            # 模板文件（只读）：始终用源码目录（exe 中指向 _MEI 临时目录）
             config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config")
         self.config_dir = config_dir
         self.template_path = os.path.join(config_dir, "tasks_template.json")
-        self.session_path = os.path.join(config_dir, "session_state.json")
+
+        # session_state.json（可写）：exe 时存放到 exe 同级目录，避免临时目录丢失
+        if getattr(sys, 'frozen', False):
+            exe_dir = os.path.dirname(sys.executable)
+            self.session_path = os.path.join(exe_dir, "session_state.json")
+        else:
+            self.session_path = os.path.join(config_dir, "session_state.json")
+
         self.shifts = []  # 运行时的任务实例
         self.start_date = None  # 程序启动日期
 
@@ -83,8 +92,17 @@ class TaskManager:
             with open(self.session_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             saved_date = datetime.strptime(data.get("start_date", ""), "%Y-%m-%d").date()
-            # 如果是同一天启动，恢复会话
-            if saved_date == datetime.now().date():
+
+            # 值班周期分界点为 07:30（次日早班开始时间）
+            # 07:30 前启动 → 归属昨天的值班周期
+            # 07:30 后启动 → 归属今天的值班周期
+            now = datetime.now()
+            if now.hour < 7 or (now.hour == 7 and now.minute < 30):
+                expected_date = (now - timedelta(days=1)).date()
+            else:
+                expected_date = now.date()
+
+            if saved_date == expected_date:
                 self.shifts = []
                 for s in data["shifts"]:
                     shift = copy.deepcopy(s)
