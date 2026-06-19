@@ -1,0 +1,102 @@
+{}{}{
+  "start_date": "2026-06-19",
+  "shifts": [
+    {
+      "time": "08:30",
+      "label": "上午班",
+      "tasks": [
+        "打卡",
+        "zabbix巡检",
+        "作为值班经理在门户建立当日值班群，拉入当日系统部值班人员",
+        "登录交易所400坐席",
+        "登录飞创客服平台坐席",
+        "填写值班日志",
+        "在值班群内发送‘河口值班正常’"
+      ],
+      "reminder_datetime": "2026-06-19 08:30:00",
+      "reminded": true,
+      "completed": false,
+      "task_states": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "time": "15:30",
+      "label": "下午班",
+      "tasks": [
+        "DCE模拟交易结算"
+      ],
+      "reminder_datetime": "2026-06-19 15:30:00",
+      "reminded": false,
+      "completed": false,
+      "task_states": [
+        false
+      ]
+    },
+    {
+      "time": "17:00",
+      "label": "打卡提醒",
+      "tasks": [
+        "打卡"
+      ],
+      "reminder_datetime": "2026-06-19 17:00:00",
+      "reminded": false,
+      "completed": false,
+      "task_states": [
+        false
+      ]
+    },
+    {
+      "time": "17:30",
+      "label": "登出交易所400坐席提醒",
+      "tasks": [
+        "登出交易所400坐席"
+      ],
+      "reminder_datetime": "2026-06-19 17:30:00",
+      "reminded": false,
+      "completed": false,
+      "task_states": [
+        false
+      ]
+    },
+    {
+      "time": "20:00",
+      "label": "晚班",
+      "tasks": [
+        "zabbix巡检",
+        "填写值班日志"
+      ],
+      "reminder_datetime": "2026-06-19 20:00:00",
+      "reminded": false,
+      "completed": false,
+      "task_states": [
+        false,
+        false
+      ]
+    },
+    {
+      "time": "07:30",
+      "label": "次日早班",
+      "next_day": true,
+      "tasks": [
+        "仿真环境检查",
+        "将今日值班经理拉入群",
+        "退出值班群组"
+      ],
+      "reminder_datetime": "2026-06-20 07:30:00",
+      "reminded": false,
+      "completed": false,
+      "task_states": [
+        false,
+        false,
+        false
+      ]
+    }
+  ]
+}
