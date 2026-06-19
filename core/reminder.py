@@ -105,11 +105,26 @@ class ReminderManager:
     def _confirm_and_quit(self):
         """最后时段完成后，确认并退出程序"""
         import tkinter.messagebox as mb
+        import sys
+        import os
+
         result = mb.showinfo(
             "值班完成",
             "本次值班所有任务已完成，值班闹钟将关闭。",
             parent=self.root
         )
+
+        # exe 环境下，删除 exe 同级目录的 session_state.json
+        if getattr(sys, 'frozen', False):
+            session_file = os.path.join(
+                os.path.dirname(sys.executable), "session_state.json"
+            )
+            if os.path.exists(session_file):
+                try:
+                    os.remove(session_file)
+                except Exception:
+                    pass
+
         # 关闭整个应用
         self.root.after(100, self._do_full_quit)
 
