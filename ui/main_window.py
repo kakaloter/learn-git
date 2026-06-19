@@ -15,8 +15,8 @@ class MainWindow(tk.Tk):
         self._on_quit_callback = on_quit_callback  # 供 reminder_manager 调用
 
         self.title("值班闹钟")
-        self.geometry("600x520")
-        self.minsize(500, 400)
+        self.geometry("480x520")
+        self.minsize(400, 400)
 
         # 关闭按钮最小化到托盘
         self.protocol("WM_DELETE_WINDOW", self._on_close)
